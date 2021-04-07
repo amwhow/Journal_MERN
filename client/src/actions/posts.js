@@ -5,6 +5,7 @@ import * as api from '../api';
 // redux thunk is async
 export const getPosts = () => async (dispatch) => {
   try {
+    // what is this api?
     const { data } = await api.fetchPosts();
     // return the action
     dispatch( { type: 'FETCH_ALL', payload: data });
@@ -12,4 +13,13 @@ export const getPosts = () => async (dispatch) => {
     console.log(error.message)
   }
 
+}
+
+export const newPost = (post) => async (dispatch) => {
+  try {
+    const { data } = await api.createPost(post);
+    dispatch( { type: "CREATE", payload: data });
+  } catch(error) {
+    console.log(error);
+  }
 }

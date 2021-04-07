@@ -10,6 +10,7 @@ import reducers from './reducers';
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
 ReactDOM.render(
+  // Redux store is a global store, from which states can be accessed  anywhere in the app
   <Provider store={store}>
     <App />
   </Provider>, 
