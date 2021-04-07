@@ -7,11 +7,11 @@ import postRoutes from './routes/posts.js'
 const app = express();
 
 // this adds the prefix '/posts' behind all routes in post.js, equal to the 'routes.rb' file regarding functionality
-app.use('/posts', postRoutes);
 
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+app.use('/posts', postRoutes);
 
 // mongo section, credentials will be secured later
 
