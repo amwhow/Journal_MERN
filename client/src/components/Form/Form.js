@@ -10,7 +10,7 @@ const Form = () => {
   const [postData, setPostData] = useState({
     author: "",
     title: "",
-    text: "",
+    message: "",
     tags: "",
     selectedFile: "",
   });
@@ -21,10 +21,8 @@ const Form = () => {
     console.log("postData is : " + postData);
     dispatch(newPost(postData));
   };
-  
-  const clear = () => {
 
-  };
+  const clear = () => {};
 
   return (
     <Paper className={classes.paper}>
@@ -52,12 +50,14 @@ const Form = () => {
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
         />
         <TextField
-          name="text"
+          name="message"
           variant="outlined"
-          label="Text"
+          label="Message"
           fullWidth
-          value={postData.text}
-          onChange={(e) => setPostData({ ...postData, text: e.target.value })}
+          value={postData.message}
+          onChange={(e) =>
+            setPostData({ ...postData, message: e.target.value })
+          }
         />
         <TextField
           name="tags"
@@ -76,13 +76,26 @@ const Form = () => {
               setPostData({ ...postData, selectedFile: base64 })
             }
           />
-          <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>
-            Submit
-          </Button>
-          <Button variant="contained" color="secondary" size="small" fullWidth onClick={clear}>
-            Clear
-          </Button>
         </div>
+        <Button
+          className={classes.buttonSubmit}
+          variant="contained"
+          color="primary"
+          size="large"
+          type="submit"
+          fullWidth
+        >
+          Submit
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          fullWidth
+          onClick={clear}
+        >
+          Clear
+        </Button>
       </form>
     </Paper>
   );
