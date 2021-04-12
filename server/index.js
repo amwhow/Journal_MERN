@@ -13,7 +13,7 @@ app.use(cors());
 app.use('/posts', postRoutes);
 
 // mongo section, credentials will be secured later
-const CONNECTION_URL = 'mongodb+srv://amwhow33:amwhow3305@cluster0.8oqr7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const CONNECTION_URL = 'mongodb+srv://amwhow33:amwhow3305@cluster0.8oqr7.mongodb.net/PostMessage?retryWrites=true&w=majority'
 const PORT = process.env.PORT || 3500;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})
