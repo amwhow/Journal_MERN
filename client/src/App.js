@@ -11,12 +11,12 @@ import journals from "./images/journals.png"
 const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [currentId, setCurrentId] = useState(0);
 
   useEffect(()=> {
     dispatch(getPosts());
-  }, [])
+  }, [currentId, dispatch])
 
-  const [currentId, setCurrentId] = useState(0);
 
   return (
     <Container maxidth="lg">
@@ -33,7 +33,7 @@ const App = () => {
               <Posts setCurrentId={setCurrentId} />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form />
+              <Form currentId={currentId} setCurrentId={setCurrentId} />
             </Grid>
           </Grid>
         </Container>

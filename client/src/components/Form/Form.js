@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import useStyles from "./styles";
-import { newPost } from "../../actions/posts";
-import { useDispatch } from "react-redux";
+import { createPost, updatePost } from "../../actions/posts";
+import { useDispatch, useSelector } from "react-redux";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
   const [postData, setPostData] = useState({
     author: "",
@@ -14,15 +14,39 @@ const Form = () => {
     tags: "",
     selectedFile: "",
   });
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((post) => post._id === currentId) : null
+  );
+
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("postData is : " + postData);
-    dispatch(newPost(postData));
+    if (currentId === 0) {
+      console.log("postData is : " + postData);
+      dispatch(createPost(postData));
+      clear();
+    } else {
+      // console.log(typeof(currentId));
+      dispatch(updatePost(currentId, postData));
+      clear();
+    }
   };
 
-  const clear = () => {};
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({
+      author: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -32,7 +56,9 @@ const Form = () => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a journey</Typography>
+        <Typography variant="h6">
+          {currentId ? "Editing" : "Creating"} a journey
+        </Typography>
         <TextField
           name="author"
           variant="outlined"
@@ -62,10 +88,12 @@ const Form = () => {
         <TextField
           name="tags"
           variant="outlined"
-          label="Tags"
+          label="Tags (coma separated)"
           fullWidth
           value={postData.tags}
-          onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+          onChange={(e) =>
+            setPostData({ ...postData, tags: e.target.value.split(",") })
+          }
         />
         {/* convert files to a string  */}
         <div className={classes.fileInput}>
