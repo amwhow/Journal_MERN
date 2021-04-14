@@ -40,6 +40,9 @@ const Post = ({ post, setCurrentId }) => {
         image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} style={{height:"200px"}} title={post.title}
       />
       <CardContent>
+        <Typography variant="body2" color="textSecondary" component="h2">
+          {post.tags.map((tag) => `#${tag} `)}
+        </Typography>
         <Typography
           className={classes.title}
           gutterBottom
@@ -50,9 +53,6 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
           {post.message}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="h2">
-          {post.tags.map((tag) => `#${tag} `)}
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
