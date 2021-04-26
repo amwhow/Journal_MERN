@@ -6,7 +6,6 @@ import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE_POST } from '../constants/actio
 // redux thunk is async
 export const getPosts = () => async (dispatch) => {
   try {
-    // what is this api?
     const { data } = await api.fetchPosts();
     // return the action
     dispatch( { type: FETCH_ALL, payload: data });
