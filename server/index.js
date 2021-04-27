@@ -17,8 +17,6 @@ app.get('/', (req,res) => {
   res.send("hello");
 });
 
-// mongo section, credentials will be secured later
-// const CONNECTION_URL = 'mongodb+srv://amwhow33:amwhow3305@cluster0.8oqr7.mongodb.net/PostMessage?retryWrites=true&w=majority'
 const PORT = process.env.PORT || 3500;
 
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})
