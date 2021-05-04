@@ -46,15 +46,24 @@ export const deletePost = async (req, res) => {
   res.json( { message: 'Post deleted!' })
 }
 
-
 export const likePost = async (req, res) => {
   const { id: _id } = req.params;
+
+  if (!req.userId) return res.json({ message: "user authentication failed"})
 
   if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send("No post found with that id");
   
   const post = await PostMessage.findById(_id);
 
-  const updatedPost = await PostMessage.findByIdAndUpdate(_id, { likeCount : post.likeCount + 1 }, { new: true })
+  const index = post.likes.findIndex((id) => id === String(req.userId));
+
+  if (index === -1) {
+    post.likes.push(req.userId)
+  } else {
+    post.likes = post.likes.filter((id) => id !==String(req.userId))
+  }
+
+  const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true })
 
   res.json(updatedPost)
 }

@@ -1,11 +1,12 @@
 import axios from "axios";
 
 // const url = "https://journal-project-mern.herokuapp.com/posts";
-const url = "http://localhost:3500/posts";
+const API = axios.create({ baseURL: 'http://localhost:3500'});
 
-// axios integrated the two steps of fetching data and .json() it
-export const fetchPosts = () => axios.get(url)
-export const createPost = (newPost) => axios.post(url, newPost);
-export const updatePost = (id, postData) => axios.patch(`${url}/${id}`, postData)
-export const likePost = (id) => axios.patch(`${url}/${id}/likePost`)
-export const deletePost = (id) => axios.delete(`${url}/${id}`)
+// API integrated the two steps of fetching data and .json() it
+export const fetchPosts = () => API.get('/posts')
+export const createPost = (newPost) => API.post('/posts', newPost);
+export const updatePost = (id, postData) => API.patch(`/posts/${id}`, postData)
+export const likePost = (id) => API.patch(`/posts/${id}/likePost`)
+export const deletePost = (id) => API.delete(`/posts/${id}`)
+export const signUp = (id) => API.post(url, newPost);

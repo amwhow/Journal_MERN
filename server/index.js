@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import postRoutes from './routes/posts.js'
+import userRoutes from './routes/users.js'
 import dotenv from 'dotenv'
 
 // initialise the app
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 // this adds the prefix '/posts' behind all routes in post.js, equal to the 'routes.rb' file regarding functionality
 app.use('/posts', postRoutes);
+app.use('/user', userRoutes);
 app.get('/', (req,res) => {
   res.send("hello");
 });
